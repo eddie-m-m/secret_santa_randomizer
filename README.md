@@ -10,7 +10,7 @@ An interactive, fun way to spice up your Secret Santa lists.
 
 ## Authors
 
-[@catietdcollins] (https://github.com/catietdcollins)
-[@eddie-m-m] (https://github.com/eddie-m-m/)
+[@catietdcollins](https://github.com/catietdcollins)
+[@eddie-m-m](https://github.com/eddie-m-m/)
 
 ## Acknowledgements
