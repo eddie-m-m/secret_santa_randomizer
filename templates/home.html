@@ -34,18 +34,17 @@
     <div class="santa_container">
       <h1>Add Santa</h1>
       <div>
-
+      {{ display_error }}
+    </div>
+      <div>
         <form action='/add_participant' method="POST">
           <label for="participant">Add a Santa:</label>
           <input type="text" id="participant" name="participant" required>
           <button type="submit">Add</button>
         </form>
-
       </div>
-
     <div id='santa_list'>
       <table>
-
         {% for santa in participants %}
         <tr>
           <td id="santas">{{ santa.name }}</td>
