@@ -1,0 +1,73 @@
+body {
+  background-image: url("/static/img/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+}
+
+table {
+  margin: auto;
+  margin-top: 50px;
+}
+
+td {
+  border-bottom: 1px solid black;
+}
+
+#giftees {
+  margin-left: 10px;
+}
+
+td {
+  background-color: white;
+  width: 150px;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+#headerPopup {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.content {
+  position: fixed;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+}
+
+#toggleButton {
+  width: 200px;
+  font-size: 18px;
+  padding: 10px;
+  border: none;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+}
+
+#toggleButton:hover {
+  background: #ddd;
+  color: black;
+}
+
+.content {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  transform: translateX(-50%) translateY(100%);
+  animation: moveUp 2s forwards;
+}
+
+@keyframes moveUp {
+  to {
+    transform: translateX(0) translateY(0);
+  }
+}

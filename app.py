@@ -1,5 +1,6 @@
-from flask import Flask, render_template, session, url_for, redirect, request
+from flask import Flask, render_template, session, url_for, redirect, request, Response
 from models import SecretSanta, db
+from random import shuffle
 
 
 class SecretSantaApp:
@@ -9,59 +10,90 @@ class SecretSantaApp:
         db.init_app(self.app)
         self.register_routes()
 
-    def register_routes(self):
-        # home (/GET ?)
+    def register_routes(self) -> None:
         self.app.add_url_rule('/', 'home', self.home)
-        # view_list (/GET ?)
         self.app.add_url_rule('/view_list', 'view_list',
                               self.view_list)
-        # add_santa: /POST
-        self.app.add_url_rule('/add_santa/<int: santa_id> ', 'add_santa',
-                              self.add_santa, methods=['POST'])
-        # randomize_list: /GET /POST
+        self.app.add_url_rule('/add_participant', 'add_participant',
+                              self.add_participant, methods=['POST'])
         self.app.add_url_rule('/randomize_list',
                               'randomize_list', self.randomize_list, methods=['GET', 'POST'])
 
-    def home(self):
-        # enables dynamic updating of participant list from user inputs
+    def home(self) -> str:
         all_santas = SecretSanta.query.all()
         return render_template('home.html', participants=all_santas)
 
-    def add_santa(self):
+    def add_participant(self) -> Response:
         participant = request.form.get('participant')
-        santa = SecretSanta(participant)
+        santa = SecretSanta(participant, None)
 
         db.session.add(santa)
         db.session.commit()
 
         return redirect(url_for('home'))
 
-    def view_list(self):
-        # retrieves all db info for display
+    def view_list(self) -> str:
         all_santas = SecretSanta.query.all()
-        # return db results ordered by name in ascending order
+        self.hybrid_sort(all_santas)
+
         return render_template('view_list.html', participants=all_santas)
 
-    def randomize_list(self):
-        pass
-        # all_santas = SecretSanta.query.all()
-        # initalize santa_list, recipient_list from all_santas
+    def randomize_list(self) -> str | Response:
 
-        # sort santa_list by name (santa) in ascending order with hybrid insertion/quicksort (threshold == 14)
-        # randomly assign recipient to santa:
-        # after matching a recipient to a santa, pop santa from santa_list and pop recipient from recipient_list
-        # repeat until lists are empty
+        all_santas = SecretSanta.query.filter(
+            SecretSanta.recipient == None).all()
 
-        # return redirect(url_for('view_list'))
+        if len(all_santas) < 2:
+            error_message = 'There are not enough participants added to create a Secret Santa list. Please add more participants.'
+            return render_template('home.html',  display_error=error_message)
 
-        # EDGE CASES:
-        # odd number of santas input to db
-        # duplicate names (santa, recipient)
-        # validate for alphabetic input
-        # strip whitespace from input
+        if len(all_santas) % 2 != 0:
+            error_message = f"Add one more participant to create a Secret Santa list. Otherwise, someone won't get a present!"
+            return render_template('home.html',  display_error=error_message)
+
+        santa_list = [santa.name for santa in all_santas]
+        shuffle(santa_list)
+        recipient_list = [santa.name for santa in all_santas]
+
+        for santa in all_santas:
+            recipient = recipient_list.pop()
+            santa.recipient = recipient
+
+            db.session.commit()
+
+        return redirect(url_for('view_list'))
+
+    def hybrid_sort(self, all_santas_list: list) -> None:
+        if len(all_santas_list) < 15:
+            self.insertion_sort(all_santas_list)
+        else:
+            self.quick_sort(all_santas_list)
+
+    def insertion_sort(self, all_santas_list: list) -> list:
+        for i in range(1, len(all_santas_list)):
+            key = all_santas_list[i].name
+            j = i - 1
+            while all_santas_list[j].name > key and j >= 0:
+                all_santas_list[j+1].name = all_santas_list[j].name
+                j -= 1
+            all_santas_list[j+1].name = key
+        return all_santas_list
+
+    def quick_sort(self, all_santas_list: list) -> list:
+        pivot = all_santas_list.pop()
+        grtr_lst, equal_lst, smlr_lst = [], [pivot], []
+        for item in all_santas_list:
+            if item == pivot:
+                equal_lst.append(item)
+            elif item > pivot:
+                grtr_lst.append(item)
+            else:
+                smlr_lst.append(item)
+        return self.quick_sort(smlr_lst) + equal_lst + self.quick_sort(grtr_lst)
 
 
 if __name__ == "__main__":
-    with SecretSantaApp().app.app_context():
+    secret_santa_app = SecretSantaApp()
+    with secret_santa_app.app.app_context():
         db.create_all()
-    SecretSantaApp().app.run(debug=True)
+    secret_santa_app.app.run(debug=False)
