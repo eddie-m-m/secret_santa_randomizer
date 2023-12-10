@@ -20,14 +20,9 @@
     &nbsp&nbsp     
     <a href="{{ url_for('randomize_list') }}">View List</a>&nbsp&nbsp
     </header>
-    <video autoplay loop muted id="headerPopup">
+    <video autoplay muted id="headerPopup">
       <source src="static/img/opening_vid.mp4" type="video/mp4" preload="auto">
     </video> 
-    <!-- Button to toggle video visibility -->
-    <div id="btnDiv">
-    <div class="content">
-    <button id="toggleButton" onclick="toggleVideo()">Start Your List Now</button>
-    </div>
   </div>
     <!-- div with form and input button -->
   <div id="adding_santa">
@@ -55,20 +50,20 @@
     <script>
       function toggleVideo() {
         const video = document.getElementById("headerPopup");
-        const button = document.getElementById("toggleButton");
         const addingSantaDiv = document.getElementById('adding_santa');
-        const btnDiv = document.getElementById('container');
+        const videoPlayed = localStorage.getItem('videoPlayed');
 
-        if (video.style.display === "none") {
-          video.style.display = "block";
-          button.innerHTML = "Hide Video";
-        } else {  
-          addingSantaDiv.style.display = 'block';
+        if (!videoPlayed) {
+          video.addEventListener("ended", () => {
+            video.style.display = "none";
+            addingSantaDiv.style.display = "block";
+            localStorage.setItem('videoPlayed', 'true');
+          });
+        } else {
           video.style.display = "none";
-          button.style.display = "none";
-          btnDiv.style.display = "none"
         }
       }
+      window.onload = toggleVideo();
     </script>
   </body>
-</html>
+  </html>
