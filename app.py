@@ -39,11 +39,12 @@ class SecretSantaApp:
         return render_template('view_list.html', participants=all_santas)
 
     def randomize_list(self) -> str | Response:
+        initial_santas_added = SecretSanta.query.all()
 
         all_santas = SecretSanta.query.filter(
             SecretSanta.recipient == None).all()
 
-        if len(all_santas) < 2:
+        if len(initial_santas_added) < 2:
             error_message = 'There are not enough participants added to create a Secret Santa list. Please add more participants.'
             return render_template('home.html',  display_error=error_message)
 
@@ -53,12 +54,16 @@ class SecretSantaApp:
 
         santa_list = [santa.name for santa in all_santas]
         shuffle(santa_list)
-        recipient_list = [santa.name for santa in all_santas]
+        recipient_list = santa_list
 
         for santa in all_santas:
-            recipient = recipient_list.pop()
-            santa.recipient = recipient
+            while True:
+                recipient = recipient_list.pop()
+                if recipient != santa.name:
+                    break
+                recipient_list.insert(0, recipient)
 
+            santa.recipient = recipient
             db.session.commit()
 
         return redirect(url_for('view_list'))
