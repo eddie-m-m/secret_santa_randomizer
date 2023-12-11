@@ -20,7 +20,7 @@ class SecretSantaApp:
         self.app.add_url_rule('/randomize_list',
                               'randomize_list', self.randomize_list, methods=['GET', 'POST'])
         self.app.add_url_rule(
-            '/clear_list', 'clear_list', self.clear_list, methods=['GET', 'DELETE'])
+            '/clear_list', 'clear_list', self.clear_list)
 
     def home(self) -> str:
         all_santas = SecretSanta.query.all()
@@ -45,7 +45,8 @@ class SecretSantaApp:
         return render_template('view_list.html', participants=all_santas)
 
     def clear_list(self) -> str | Response:
-        db.drop_all()
+        db.session.query(SecretSanta).delete()
+        db.session.commit()
         clear_message = f'The list has been cleared!'
 
         return render_template('home.html', display_error=clear_message)
