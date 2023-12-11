@@ -1,6 +1,7 @@
 from flask import Flask, render_template, session, url_for, redirect, request, Response
 from models import SecretSanta, db
 from random import shuffle
+from collections import deque
 
 
 class SecretSantaApp:
@@ -40,8 +41,7 @@ class SecretSantaApp:
 
     def randomize_list(self) -> str | Response:
 
-        all_santas = SecretSanta.query.filter(
-            SecretSanta.recipient == None).all()
+        all_santas = SecretSanta.query.all()
 
         if len(all_santas) % 2 != 0:
             error_message = f"Add one more participant to create a Secret Santa list. Otherwise, someone won't get a present!"
@@ -49,17 +49,16 @@ class SecretSantaApp:
 
         santa_list = [santa.name for santa in all_santas]
         shuffle(santa_list)
-        recipient_list = santa_list
+        recipient_deque = deque(santa_list)
 
         for santa in all_santas:
-            while True:
-                recipient = recipient_list.pop()
-                if recipient != santa.name:
-                    break
-                recipient_list.insert(0, recipient)
+            recipient = recipient_deque.pop()
+            if recipient == santa.name:
+                recipient_deque.appendleft(recipient)
+                recipient = recipient_deque.pop()
 
             santa.recipient = recipient
-            db.session.commit()
+        db.session.commit()
 
         return redirect(url_for('view_list'))
 
