@@ -73,9 +73,9 @@ class SecretSantaApp:
             key = all_santas_list[i].name
             j = i - 1
             while all_santas_list[j].name > key and j >= 0:
-                all_santas_list[j+1].name = all_santas_list[j].name
+                all_santas_list[j + 1].name = all_santas_list[j].name
                 j -= 1
-            all_santas_list[j+1].name = key
+            all_santas_list[j + 1].name = key
         return all_santas_list
 
     def quick_sort(self, all_santas_list: list) -> list:
