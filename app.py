@@ -19,6 +19,8 @@ class SecretSantaApp:
                               self.add_participant, methods=['POST'])
         self.app.add_url_rule('/randomize_list',
                               'randomize_list', self.randomize_list, methods=['GET', 'POST'])
+        self.app.add_url_rule(
+            '/clear_list', 'clear_list', self.clear_list, methods=['GET', 'DELETE'])
 
     def home(self) -> str:
         all_santas = SecretSanta.query.all()
@@ -41,6 +43,12 @@ class SecretSantaApp:
         self.hybrid_sort(all_santas)
 
         return render_template('view_list.html', participants=all_santas)
+
+    def clear_list(self) -> str | Response:
+        db.drop_all()
+        clear_message = f'The list has been cleared!'
+
+        return render_template('home.html', display_error=clear_message)
 
     def randomize_list(self) -> str | Response:
         all_santas = SecretSanta.query.all()
@@ -78,6 +86,8 @@ class SecretSantaApp:
                 j -= 1
             all_santas_list[j + 1].name = key
         return all_santas_list
+
+    # Todo: fix quick_sort
 
     def quick_sort(self, all_santas_list: list) -> list:
         if not all_santas_list:
