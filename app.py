@@ -67,10 +67,8 @@ class SecretSantaApp:
         return redirect(url_for('view_list'))
 
     def hybrid_sort(self, all_santas_list: list) -> None:
-        if len(all_santas_list) < 15:
-            self.insertion_sort(all_santas_list)
-        else:
-            self.quick_sort(all_santas_list)
+        self.insertion_sort(all_santas_list) if len(
+            all_santas_list) < 15 else self.quick_sort(all_santas_list)
 
     def insertion_sort(self, all_santas_list: list) -> list:
         for i in range(1, len(all_santas_list)):
