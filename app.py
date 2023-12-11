@@ -39,14 +39,9 @@ class SecretSantaApp:
         return render_template('view_list.html', participants=all_santas)
 
     def randomize_list(self) -> str | Response:
-        initial_santas_added = SecretSanta.query.all()
 
         all_santas = SecretSanta.query.filter(
             SecretSanta.recipient == None).all()
-
-        if len(initial_santas_added) < 2:
-            error_message = 'There are not enough participants added to create a Secret Santa list. Please add more participants.'
-            return render_template('home.html',  display_error=error_message)
 
         if len(all_santas) % 2 != 0:
             error_message = f"Add one more participant to create a Secret Santa list. Otherwise, someone won't get a present!"
