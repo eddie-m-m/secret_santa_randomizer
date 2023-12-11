@@ -38,7 +38,7 @@ class SecretSantaApp:
         if len(all_santas) == 0:
             error_message = f'Add participants to create a Secret Santa list!'
             return render_template('home.html', display_error=error_message)
-        all_santas = self.hybrid_sort(all_santas)
+        self.hybrid_sort(all_santas)
 
         return render_template('view_list.html', participants=all_santas)
 
