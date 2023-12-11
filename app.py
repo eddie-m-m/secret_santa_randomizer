@@ -79,16 +79,18 @@ class SecretSantaApp:
         return all_santas_list
 
     def quick_sort(self, all_santas_list: list) -> list:
-        pivot = all_santas_list.pop()
-        grtr_lst, equal_lst, smlr_lst = [], [pivot], []
-        for item in all_santas_list:
-            if item == pivot:
-                equal_lst.append(item)
-            elif item > pivot:
-                grtr_lst.append(item)
-            else:
-                smlr_lst.append(item)
-        return self.quick_sort(smlr_lst) + equal_lst + self.quick_sort(grtr_lst)
+        if not all_santas_list:
+            return []
+
+        pivot_index = len(all_santas_list) // 2
+        pivot = all_santas_list.pop(pivot_index)
+
+        grtr_lst = [item for item in all_santas_list if item.name > pivot.name]
+        equal_lst = [
+            item for item in all_santas_list if item.name == pivot.name]
+        smlr_lst = [item for item in all_santas_list if item.name < pivot.name]
+
+        return self.quick_sort(smlr_lst) + equal_lst + [pivot] + self.quick_sort(grtr_lst)
 
 
 if __name__ == "__main__":
