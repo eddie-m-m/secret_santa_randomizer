@@ -7,6 +7,7 @@
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
 
     <link rel="shortcut icon"
@@ -29,28 +30,28 @@
     <div class="santa_container">
       <h1>Add Santa</h1>
       <div>
-        <div class="text-warning" >
+        <div class="text-danger" >
         {{ display_message }}
         </div>
       <div>
         <form action='/add_participant' method="POST">
           <label for="participant">Add a Santa:</label>
           <input type="text" id="participant" name="participant" required>
-          <button type="submit" class="btn btn-primary">Add</button>
-          <a href="{{ url_for('clear_list') }}" class="btn btn-danger close" >Clear List</a>
+          <button type="submit" class="btn btn-success">Add</button>
+          <a href="{{ url_for('clear_list') }}" class="btn btn-danger" >Clear List</a>
         </form>
       </div>
-    <div id='santa_list'>
-      <table>
+      <table class="table w-25">
+        <tbody>
         {% for santa in participants %}
         <tr>
           <td id="santas">{{ santa.name }}</td>
         </tr>
         {% endfor %}
+        </tbody>
       </table>
-    </div>
     <script>
-      function toggleVideo() {
+      function playVideo() {
         const video = document.getElementById("headerPopup");
         const addingSantaDiv = document.getElementById('adding_santa');
         const videoPlayed = sessionStorage.getItem('videoPlayed');
@@ -65,7 +66,7 @@
           video.style.display = "none";
         }
       }
-      window.onload = toggleVideo();
+      window.onload = playVideo();
     </script>
   </body>
   </html>
