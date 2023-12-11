@@ -54,7 +54,7 @@ class SecretSantaApp:
 
         for santa in all_santas:
             recipient = recipient_deque.pop()
-            if recipient == santa.name:
+            while recipient == santa.name:
                 recipient_deque.appendleft(recipient)
                 recipient = recipient_deque.pop()
 
