@@ -87,8 +87,6 @@ class SecretSantaApp:
             all_santas_list[j + 1].name = key
         return all_santas_list
 
-    # Todo: fix quick_sort
-
     def quick_sort(self, all_santas_list: list) -> list:
         if not all_santas_list:
             return []
@@ -101,7 +99,7 @@ class SecretSantaApp:
             item for item in all_santas_list if item.name == pivot.name]
         smlr_lst = [item for item in all_santas_list if item.name < pivot.name]
 
-        return self.quick_sort(smlr_lst) + equal_lst + [pivot] + self.quick_sort(grtr_lst)
+        return self.quick_sort(smlr_lst) + equal_lst + self.quick_sort(grtr_lst)
 
 
 if __name__ == "__main__":
