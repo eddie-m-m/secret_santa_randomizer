@@ -28,10 +28,10 @@ and navigate to port 5000 on localhost (the default Flask port).
 
 ## Authors
 
-[@catietdcollins](https://github.com/catietdcollins)
+[@catietdcollins](https://github.com/catietdcollins)<br>
 [@eddie-m-m](https://github.com/eddie-m-m/)
 
 ## Acknowledgements
 
-Thank you to Columbia University's [@Justice-Through-Code](https://github.com/Justice-Through-Code).
+Thank you to Columbia University's [@Justice-Through-Code](https://github.com/Justice-Through-Code).<br>
 Thank you in particular to [@jtc21am](https://github.com/jtc21am) whose teaching and algorithm outlines provided invaluable assistance to this project.
