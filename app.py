@@ -43,7 +43,6 @@ class SecretSantaApp:
         return render_template('view_list.html', participants=all_santas)
 
     def randomize_list(self) -> str | Response:
-
         all_santas = SecretSanta.query.all()
 
         if len(all_santas) % 2 != 0:
