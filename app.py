@@ -44,12 +44,11 @@ class SecretSantaApp:
 
         return render_template('view_list.html', participants=all_santas)
 
-    def clear_list(self) -> str | Response:
+    def clear_list(self) -> str:
         db.session.query(SecretSanta).delete()
         db.session.commit()
-        clear_message = f'The list has been cleared!'
 
-        return render_template('home.html', display_message=clear_message)
+        return redirect(url_for('home'))
 
     def randomize_list(self) -> str | Response:
         all_santas = SecretSanta.query.all()
