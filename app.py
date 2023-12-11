@@ -49,6 +49,7 @@ class SecretSantaApp:
 
         santa_list = [santa.name for santa in all_santas]
         shuffle(santa_list)
+        shuffle(all_santas)
         recipient_deque = deque(santa_list)
 
         for santa in all_santas:
