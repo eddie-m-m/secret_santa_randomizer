@@ -39,7 +39,7 @@ class SecretSantaApp:
         all_santas = SecretSanta.query.all()
         if len(all_santas) == 0:
             error_message = f'Add participants to create a Secret Santa list!'
-            return render_template('home.html', display_error=error_message)
+            return render_template('home.html', display_message=error_message)
         self.hybrid_sort(all_santas)
 
         return render_template('view_list.html', participants=all_santas)
@@ -49,14 +49,14 @@ class SecretSantaApp:
         db.session.commit()
         clear_message = f'The list has been cleared!'
 
-        return render_template('home.html', display_error=clear_message)
+        return render_template('home.html', display_message=clear_message)
 
     def randomize_list(self) -> str | Response:
         all_santas = SecretSanta.query.all()
 
         if len(all_santas) % 2 != 0:
             error_message = f"Add one more participant to create a Secret Santa list. Otherwise, someone won't get a present!"
-            return render_template('home.html',  display_error=error_message)
+            return render_template('home.html',  display_message=error_message)
 
         santa_list = [santa.name for santa in all_santas]
         shuffle(santa_list)
