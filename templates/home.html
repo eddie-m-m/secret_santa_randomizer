@@ -29,16 +29,15 @@
     <div class="santa_container">
       <h1>Add Santa</h1>
       <div>
-        <div class="error-message" >
+        <div class="text-warning" >
         {{ display_message }}
         </div>
-    </div>
       <div>
         <form action='/add_participant' method="POST">
           <label for="participant">Add a Santa:</label>
           <input type="text" id="participant" name="participant" required>
-          <button type="submit">Add</button>
-          <a href="{{ url_for('clear_list') }}" class="btn btn-danger" >Clear List</a>
+          <button type="submit" class="btn btn-primary">Add</button>
+          <a href="{{ url_for('clear_list') }}" class="btn btn-danger close" >Clear List</a>
         </form>
       </div>
     <div id='santa_list'>
