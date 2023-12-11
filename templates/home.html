@@ -51,13 +51,13 @@
       function toggleVideo() {
         const video = document.getElementById("headerPopup");
         const addingSantaDiv = document.getElementById('adding_santa');
-        const videoPlayed = localStorage.getItem('videoPlayed');
+        const videoPlayed = sessionStorage.getItem('videoPlayed');
 
         if (!videoPlayed) {
           video.addEventListener("ended", () => {
             video.style.display = "none";
             addingSantaDiv.style.display = "block";
-            localStorage.setItem('videoPlayed', 'true');
+            sessionStorage.setItem('videoPlayed', 'true');
           });
         } else {
           video.style.display = "none";
