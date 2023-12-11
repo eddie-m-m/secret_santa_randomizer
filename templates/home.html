@@ -38,8 +38,8 @@
           <label for="participant">Add a Santa:</label>
           <input type="text" id="participant" name="participant" required>
           <button type="submit">Add</button>
+          <a href="{{ url_for('clear_list') }}" class="btn btn-danger" >Clear List</a>
         </form>
-        <a href="{{ url_for('clear_list') }}" >Clear List?</a>
       </div>
     <div id='santa_list'>
       <table>
