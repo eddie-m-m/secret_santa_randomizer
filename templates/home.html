@@ -6,26 +6,32 @@
     <title>Secret Santa List</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
 
     <link rel="shortcut icon"
       href="{{ url_for('static', filename='img/favicon.ico') }}">
   </head>
-  <body>
+
+  <body class="blur-background">
+
     <header id='header'>
-    <img src='static/img/santa.png' width="=85px" height="95px"> <br>
-    &nbsp&nbsp 
-    <a href="#">Home</a>
-    &nbsp&nbsp     
-    <a href="{{ url_for('randomize_list') }}">View List</a>&nbsp&nbsp
+          <img src='/static/img/santa.png' alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+
+          <a="active" aria-current="page" href="#">Home</a>=
+
+          <a href="{{ url_for('randomize_list') }}">View List</a>
+
+
     </header>
+
     <video autoplay muted id="headerPopup">
       <source src="static/img/opening_vid.mp4" type="video/mp4" preload="auto">
     </video> 
   </div>
-    <!-- div with form and input button -->
+
   <div id="adding_santa">
     <div class="santa_container">
       <h1>Add Santa</h1>
@@ -41,7 +47,7 @@
           <a href="{{ url_for('clear_list') }}" class="btn btn-danger" >Clear List</a>
         </form>
       </div>
-      <table class="table w-25">
+      <table class="table table-striped-columns w-25">
         <tbody>
         {% for santa in participants %}
         <tr>
