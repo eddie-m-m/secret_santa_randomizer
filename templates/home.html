@@ -14,6 +14,7 @@
     <link rel="shortcut icon"
       href="{{ url_for('static', filename='img/favicon.ico') }}">
   </head>
+<<<<<<< HEAD
 
   <body class="blur-background">
 
@@ -27,6 +28,26 @@
 
     </header>
 
+=======
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <header id='header'>
+        <img src='static/img/santa.png' width="=55px" height="65px"> <br>
+        </header>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="{{ url_for('randomize_list') }}">View List</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+>>>>>>> 4112813bbdf9cbcb7f76839b61404ca3a99f7ed0
     <video autoplay muted id="headerPopup">
       <source src="static/img/opening_vid.mp4" type="video/mp4" preload="auto">
     </video> 
