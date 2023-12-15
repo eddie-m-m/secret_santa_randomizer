@@ -1,16 +1,16 @@
 body {
   background-image: url("/static/img/presents-tree3.jpg");
   background-repeat: no-repeat;
-  background-size:cover;
-  background-position:100% 34%;
+  background-size: cover;
+  background-position: 100% 34%;
   height: 100%;
-  width:100%;
-  text-align:center;
+  width: 100%;
+  text-align: center;
 }
 
-.logo{
+.logo {
   margin: auto;
-  height:80px;
+  height: 80px;
   width: 105px;
 }
 
@@ -50,4 +50,8 @@ td {
   color: #f1f1f1;
   width: 100%;
   padding: 20px;
+}
+
+nav {
+  background-color: #f4df73;
 }
