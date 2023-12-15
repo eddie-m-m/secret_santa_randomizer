@@ -40,9 +40,11 @@ class SecretSantaApp:
         if len(all_santas) == 0:
             error_message = f'Add participants to create a Secret Santa list!'
             return render_template('home.html', display_message=error_message)
-        self.hybrid_sort(all_santas)
+        santas = [(santa.name, santa.recipient) for santa in all_santas]
 
-        return render_template('view_list.html', participants=all_santas)
+        self.hybrid_sort(santas)
+
+        return render_template('view_list.html', participants=santas)
 
     def clear_list(self) -> str:
         db.session.query(SecretSanta).delete()
@@ -77,15 +79,16 @@ class SecretSantaApp:
         self.insertion_sort(all_santas_list) if len(
             all_santas_list) < 15 else self.quick_sort(all_santas_list)
 
-    def insertion_sort(self, all_santas_list: list) -> list:
-        for i in range(1, len(all_santas_list)):
-            key = all_santas_list[i].name
+    def insertion_sort(self, santas: list) -> list:
+        for i in range(1, len(santas)):
+            key = santas[i]
             j = i - 1
-            while all_santas_list[j].name > key and j >= 0:
-                all_santas_list[j + 1].name = all_santas_list[j].name
+            while santas[j] > key and j >= 0:
+                santas[j + 1] = santas[j]
                 j -= 1
-            all_santas_list[j + 1].name = key
-        return all_santas_list
+            santas[j + 1] = key
+        print(santas)
+        return santas
 
     def quick_sort(self, all_santas_list: list) -> list:
         if not all_santas_list:

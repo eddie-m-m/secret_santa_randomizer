@@ -43,10 +43,10 @@
         <th>Santas</th>
         <th>Giftees</th>
       </tr>
-      {% for santa in participants %}
+      {% for participant in participants %}
       <tr>
-        <td id="santas">{{ santa.name }}</td>
-        <td id="giftees">{{ santa.recipient }}</td>
+        <td id="santas">{{ participant[0] }}</td>
+        <td id="giftees">{{ participant[1] }}</td>
       </tr>
       {% endfor %}
     </table>
