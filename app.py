@@ -53,7 +53,7 @@ class SecretSantaApp:
     def randomize_list(self) -> str | Response:
         all_santas = SecretSanta.query.all()
 
-        if len(all_santas) % 2 != 0:
+        if len(all_santas) == 1:
             error_message = f"Add one more participant to create a Secret Santa list. Otherwise, someone won't get a present!"
             return render_template('home.html',  display_message=error_message)
 
