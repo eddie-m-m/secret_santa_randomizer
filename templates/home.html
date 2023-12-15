@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Secret Santa List</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <link rel="shortcut icon"
+      href="{{ url_for('static', filename='img/favicon.ico') }}">
+  </head>
+
+
+  <body class="blur-background">
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        
+      
+        <img src='static/img/santa.jpeg' class="logo"> <br>
+        
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="{{ url_for('randomize_list') }}">View List</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <video autoplay muted id="headerPopup">
+      <source src="static/img/opening_vid1.mp4" type="video/mp4" preload="auto">
+    </video> 
+  </div>
+
+  <div id="adding_santa">
+    <div class="santa_container">
+      <h1>Add Santa</h1>
+      <div>
+        <div class="text-danger" >
+        {{ display_message }}
+        </div>
+      <div>
+        <form action='/add_participant' method="POST">
+          <label for="participant">Add a Santa:</label>
+          <input type="text" id="participant" name="participant" required>
+          <button type="submit" class="btn btn-success">Add</button>
+          <a href="{{ url_for('clear_list') }}" class="btn btn-danger" >Clear List</a>
+        </form>
+      </div>
+      <table class="table table-striped-columns w-25">
+        <tbody>
+        {% for santa in participants %}
+        <tr>
+          <td id="santas">{{ santa.name }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    <script>
+      function playVideo() {
+        const video = document.getElementById("headerPopup");
+        const addingSantaDiv = document.getElementById('adding_santa');
+        const videoPlayed = sessionStorage.getItem('videoPlayed');
+
+        if (!videoPlayed) {
+          video.addEventListener("ended", () => {
+            video.style.display = "none";
+            addingSantaDiv.style.display = "block";
+            sessionStorage.setItem('videoPlayed', 'true');
+          });
+        } else {
+          video.style.display = "none";
+        }
+      }
+      window.onload = playVideo();
+    </script>
+  </body>
+  </html>

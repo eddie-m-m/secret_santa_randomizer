@@ -1,0 +1,53 @@
+body {
+  background-image: url("/static/img/presents-tree3.jpg");
+  background-repeat: no-repeat;
+  background-size:cover;
+  background-position:100% 34%;
+  height: 100%;
+  width:100%;
+  text-align:center;
+}
+
+.logo{
+  margin: auto;
+  height:80px;
+  width: 105px;
+}
+
+table {
+  margin: auto;
+  margin-top: 25px;
+  border-radius: 10px;
+}
+
+td {
+  background-color: white;
+  width: 150px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#giftees {
+  margin-left: 10px;
+  background-color: white;
+  width: 150px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#headerPopup {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.content {
+  position: fixed;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
+}
