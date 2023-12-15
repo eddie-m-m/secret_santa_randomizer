@@ -56,7 +56,7 @@ class SecretSantaApp:
         all_santas = SecretSanta.query.all()
 
         if len(all_santas) == 1:
-            error_message = f"Add one more participant to create a Secret Santa list. Otherwise, someone won't get a present!"
+            error_message = f"Add at least one more participant to create a Secret Santa list."
             return render_template('home.html',  display_message=error_message)
 
         santa_list = [santa.name for santa in all_santas]
@@ -76,8 +76,8 @@ class SecretSantaApp:
         return redirect(url_for('view_list'))
 
     def hybrid_sort(self, santas: list) -> None:
-        self.insertion_sort(santas) if len(
-            santas) < 15 else self.quick_sort(santas)
+        self.quick_sort(santas) if len(
+            santas) > 15 else self.insertion_sort(santas)
 
     def insertion_sort(self, santas: list) -> list:
         for i in range(1, len(santas)):
@@ -87,22 +87,21 @@ class SecretSantaApp:
                 santas[j + 1] = santas[j]
                 j -= 1
             santas[j + 1] = key
-        print(santas)
         return santas
 
-    def quick_sort(self, all_santas_list: list) -> list:
-        if not all_santas_list:
-            return []
+    def quick_sort(self, santas: list) -> list:
+        if len(santas) < 2:
+            return santas
 
-        pivot_index = len(all_santas_list) // 2
-        pivot = all_santas_list.pop(pivot_index)
+        pivot = santas.pop()[0]
+        left, middle, right = [], [pivot], []
 
-        grtr_lst = [item for item in all_santas_list if item.name > pivot.name]
-        equal_lst = [
-            item for item in all_santas_list if item.name == pivot.name]
-        smlr_lst = [item for item in all_santas_list if item.name < pivot.name]
+        right = [santa for santa in santas if santa[0] > pivot]
+        middle = [
+            santa for santa in santas if santa[0] == pivot]
+        left = [santa for santa in santas if santa[0] < pivot]
 
-        return self.quick_sort(smlr_lst) + equal_lst + self.quick_sort(grtr_lst)
+        return self.quick_sort(left) + middle + self.quick_sort(right)
 
 
 if __name__ == "__main__":
