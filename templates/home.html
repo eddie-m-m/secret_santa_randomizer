@@ -22,67 +22,69 @@
         <img src='static/img/santa.jpeg' width="=75" height="85"> <br>
         </header>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" style="color: gold;" href="#">Home</a>
-            </li>
-          </ul>
+          <div class="navbar-nav">
+            <div class="nav-item m-3">
+              <a class="btn btn-outline" style="border-color: gold; color: gold" href="#">Home</a>
+            </div>
+            <div class="m-3">
+              <a href="{{ url_for('clear_list') }}" class="btn btn-outline-danger" >Clear List</a>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
-
     <video autoplay muted id="headerPopup">
       <source src="static/img/opening_vid1.mp4" type="video/mp4" preload="auto">
     </video> 
-
-  <div id="adding_santa">
-    <div class="santa_container">
-      <h1 style="color:gold; font-family:Mountains of Christmas; font-size: 100px;">Add a Santa</h1>
-      <div>
-        <div class="text-danger m-3" style="font-size:xx-large; background-color: white;  border-radius: 5px; width:50%;"  >
-        {{ display_message }}
+    <div id="adding_santa">
+      <div class="santa_container" >
+        <h1 style="color:gold; font-family:Mountains of Christmas; font-size: 100px;">Add a Santa</h1>
+        <div>
+          <div>
+            <div class="text-danger m-3 display-message" style="font-size:xx-large; background-color: white;  border-radius: 5px; width:50%;"  >
+              {{ display_message }}
+            </div>
+        <div class="col-xs-4">
+          <form action='/add_participant' method="POST">
+            <input class="m-3" placeholder="Enter a name" type="text" id="participant" name="participant" autofocus required>
+            <br>
+            <div class="btn-toolbar m-3" style="display: flex; justify-content: center;">
+              <div class="m-3">
+                  <button type="submit" class="btn btn-success btn-lg">Add</button>
+              </div>
+              <div class="m-3">
+                <a href="{{ url_for('randomize_list') }}" class="btn btn-lg" style="background-color: gold; color:white">View List</a>
+              </div>
+            </div>
+          </form>
         </div>
-      <div>
-        <form action='/add_participant' method="POST">
-          <input class="m-3" placeholder="Enter a name" type="text" id="participant" name="participant" autofocus required>
-          <button type="submit" class="btn btn-success btn-lg">Add</button>
-          <br>
-          <div class="btn-toolbar m-3" style="display: flex; justify-content: center;">
-              <div class="m-3">
-              <a href="{{ url_for('randomize_list') }}" class="btn btn-lg" style="background-color: gold; color:white">View List</a>
-              </div>
-              <div class="m-3">
-              <a href="{{ url_for('clear_list') }}" class="btn btn-danger btn-lg" >Clear List</a>
-              </div>
-              </div>
-        </form>
-      </div>
-      <table class="table table-striped-columns w-25">
-        <tbody>
-        {% for santa in participants %}
-        <tr>
-          <td id="santas">{{ santa.name }}</td>
-        </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-    <script>
-      function playVideo() {
-        const video = document.getElementById("headerPopup");
-        const addingSantaDiv = document.getElementById('adding_santa');
-        const videoPlayed = sessionStorage.getItem('videoPlayed');
+        <table class="table table-striped-columns w-25">
+          <tbody>
+          {% for santa in participants %}
+          <tr>
+            <td id="santas">{{ santa.name }}</td>
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        <script>
+          function playVideo() {
+            const video = document.getElementById("headerPopup");
+            const addingSantaDiv = document.getElementById('adding_santa');
+            const videoPlayed = sessionStorage.getItem('videoPlayed');
 
-        if (!videoPlayed) {
-          video.addEventListener("ended", () => {
-            video.style.display = "none";
-            addingSantaDiv.style.display = "block";
-            sessionStorage.setItem('videoPlayed', 'true');
-          });
-        } else {
-          video.style.display = "none";
-        }
-      }
-      window.onload = playVideo();
-    </script>
-  </body>
+            if (!videoPlayed) {
+              video.addEventListener("ended", () => {
+                video.style.display = "none";
+                addingSantaDiv.style.display = "block";
+                sessionStorage.setItem('videoPlayed', 'true');
+              });
+            } else {
+              video.style.display = "none";
+            }
+          }
+          window.onload = playVideo();
+        </script>
+      </div>
+    </body>
   </html>
