@@ -24,6 +24,7 @@ class SecretSantaApp:
 
     def home(self) -> str:
         all_santas = SecretSanta.query.all()
+
         return render_template('home.html', participants=all_santas)
 
     def add_participant(self) -> Response:
