@@ -13,6 +13,7 @@
 
     <link rel="shortcut icon"
       href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <link href='https://fonts.googleapis.com/css?family=Mountains of Christmas' rel='stylesheet'>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light mask-custom">
@@ -25,9 +26,6 @@
             <li class="nav-item">
               <a class="nav-link active" style="color: gold;" href="#">Home</a>
             </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link active" style="color: gold;" href="{{ url_for('randomize_list') }}">View List</a>
-            </li> -->
           </ul>
         </div>
       </div>
@@ -36,28 +34,25 @@
     <video autoplay muted id="headerPopup">
       <source src="static/img/opening_vid1.mp4" type="video/mp4" preload="auto">
     </video> 
-  </div>
 
   <div id="adding_santa">
     <div class="santa_container">
-      <h1 style="color:gold">Add a Santa</h1>
+      <h1 style="color:gold; font-family:Mountains of Christmas; font-size: 100px;">Add a Santa</h1>
       <div>
-        <div class="text-danger" >
+        <div class="text-danger m-3" style="font-size:xx-large; background-color: white;  border-radius: 5px; width:50%;"  >
         {{ display_message }}
         </div>
       <div>
         <form action='/add_participant' method="POST">
-          <input type="text" id="participant" name="participant" autofocus required>
+          <input class="m-3" placeholder="Enter a name" type="text" id="participant" name="participant" autofocus required>
+          <button type="submit" class="btn btn-success btn-lg">Add</button>
           <br>
           <div class="btn-toolbar m-3" style="display: flex; justify-content: center;">
-              <div>
-              <button type="submit" class="btn btn-success">Add</button>
+              <div class="m-3">
+              <a href="{{ url_for('randomize_list') }}" class="btn btn-lg" style="background-color: gold; color:white">View List</a>
               </div>
-              <div>
-              <a href="{{ url_for('randomize_list') }}" class="btn" style="background-color: gold; color:white" >View List</a>
-              </div>
-              <div>
-              <a href="{{ url_for('clear_list') }}" class="btn btn-danger" >Clear List</a>
+              <div class="m-3">
+              <a href="{{ url_for('clear_list') }}" class="btn btn-danger btn-lg" >Clear List</a>
               </div>
               </div>
         </form>
