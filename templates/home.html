@@ -15,7 +15,7 @@
       href="{{ url_for('static', filename='img/favicon.ico') }}">
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg navbar-light mask-custom">
       <div class="container-fluid">
         <header id='header'>
         <img src='static/img/santa.jpeg' width="=75" height="85"> <br>
@@ -23,10 +23,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" href="#">Home</a>
+              <a class="nav-link active" style="color: gold;" href="#">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="{{ url_for('randomize_list') }}">View List</a>
+              <a class="nav-link active" style="color: gold;" href="{{ url_for('randomize_list') }}">View List</a>
             </li>
           </ul>
         </div>
@@ -40,17 +40,19 @@
 
   <div id="adding_santa">
     <div class="santa_container">
-      <h1>Add Santa</h1>
+      <h1 style="color:gold">Add a Santa</h1>
       <div>
         <div class="text-danger" >
         {{ display_message }}
         </div>
       <div>
         <form action='/add_participant' method="POST">
-          <label for="participant">Add a Santa:</label>
           <input type="text" id="participant" name="participant" required>
-          <button type="submit" class="btn btn-success">Add</button>
-          <a href="{{ url_for('clear_list') }}" class="btn btn-danger" >Clear List</a>
+          <br>
+          <div class="mt-3">
+            <button type="submit" class="btn btn-success">Add</button>
+            <a href="{{ url_for('clear_list') }}" class="btn btn-danger" >Clear List</a>
+          </div>
         </form>
       </div>
       <table class="table table-striped-columns w-25">
